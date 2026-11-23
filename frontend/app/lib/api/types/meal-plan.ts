@@ -150,5 +150,6 @@ export interface RandomPlanEntryCreate {
   date: string;
   endDate?: string | null;
   entryType?: PlanEntryType;
+  recipeScale?: number;
 }
 export interface MealieOutModel {}

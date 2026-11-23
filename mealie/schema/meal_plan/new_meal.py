@@ -44,6 +44,7 @@ class RandomPlanEntryCreate(MealieModel):
     date: date
     end_date: datetime.date | None = None
     entry_type: PlanEntryType = PlanEntryType.dinner
+    recipe_scale: Annotated[float, Field(gt=0)] = 1.0
 
     _validate_end_date = field_validator("end_date")(validate_end_date)
 

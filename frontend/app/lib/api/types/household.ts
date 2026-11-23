@@ -149,6 +149,7 @@ export interface HouseholdPreferencesUpdate {
   showAnnouncements?: boolean;
   lockRecipeEditsFromOtherHouseholds?: boolean;
   firstDayOfWeek?: number;
+  defaultMealplanScale?: number;
   recipePublic?: boolean;
   recipeShowNutrition?: boolean;
   recipeShowAssets?: boolean;
@@ -174,6 +175,7 @@ export interface HouseholdPreferencesOut {
   showAnnouncements: boolean;
   lockRecipeEditsFromOtherHouseholds: boolean;
   firstDayOfWeek: number;
+  defaultMealplanScale: number;
   recipePublic: boolean;
   recipeShowNutrition: boolean;
   recipeShowAssets: boolean;
@@ -200,6 +202,7 @@ export interface HouseholdPreferencesCreate {
   showAnnouncements?: boolean;
   lockRecipeEditsFromOtherHouseholds?: boolean;
   firstDayOfWeek?: number;
+  defaultMealplanScale?: number;
   recipePublic?: boolean;
   recipeShowNutrition?: boolean;
   recipeShowAssets?: boolean;
@@ -211,6 +214,7 @@ export interface HouseholdPreferencesSave {
   showAnnouncements?: boolean;
   lockRecipeEditsFromOtherHouseholds?: boolean;
   firstDayOfWeek?: number;
+  defaultMealplanScale?: number;
   recipePublic?: boolean;
   recipeShowNutrition?: boolean;
   recipeShowAssets?: boolean;

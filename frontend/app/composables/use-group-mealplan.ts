@@ -216,3 +216,9 @@ export const useMealplans = function (range: Ref<DateRange>) {
 
   return { mealplans, actions, loading };
 };
+
+/**
+ * Fork: days picked in the planner by tapping their headers ("yyyy-MM-dd"), so adding or generating a meal on one
+ * day also does it on these. Module-level so every day column shares it.
+ */
+export const selectedPlanDays = ref<string[]>([]);

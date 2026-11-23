@@ -157,6 +157,7 @@
 import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditButton.vue";
 import RecipeSelector from "~/components/Domain/Recipe/RecipeSelector.vue";
 import { useMealPlanEntryDates, usePlanTypeOptions } from "~/composables/use-group-mealplan";
+import { useHouseholdSelf } from "~/composables/use-households";
 import { buildRuleQueryFilter, useMealplanRules } from "~/composables/use-mealplan-rules";
 import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
 import { validators } from "~/composables/use-validators";
@@ -192,6 +193,8 @@ const { selectedDate, isWeekEntry, weekRange, entryDates, entryDatesPayload, pic
   = useMealPlanEntryDates();
 const entryType = ref<PlanEntryType>("dinner");
 const recipe = ref<RecipeSummary | null>(null);
+const { household } = useHouseholdSelf();
+const defaultScale = computed(() => household.value?.preferences?.defaultMealplanScale || 1);
 const recipeScale = ref(1);
 const title = ref("");
 const text = ref("");
@@ -214,7 +217,7 @@ const recipeServings = computed(() => recipe.value?.recipeServings || recipe.val
 
 // a scale is only meaningful for the recipe it was chosen for
 watch(() => recipe.value?.id, () => {
-  recipeScale.value = 1;
+  recipeScale.value = defaultScale.value;
 }, { flush: "sync" });
 
 const submitDisabled = computed(() => isRecipe.value ? !recipe.value : !title.value.trim());
@@ -230,7 +233,7 @@ function initialize() {
   isWeekEntry.value = props.entry ? !!props.entry.endDate : !!props.endDate;
   entryType.value = props.entry?.entryType ?? "dinner";
   recipe.value = props.entry?.recipe ?? null;
-  recipeScale.value = props.entry?.recipeScale ?? 1;
+  recipeScale.value = props.entry?.recipeScale ?? defaultScale.value;
   title.value = props.entry?.title ?? "";
   text.value = props.entry?.text ?? "";
   ignoreRules.value = false;

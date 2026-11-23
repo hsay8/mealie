@@ -1,4 +1,6 @@
-from pydantic import UUID4, ConfigDict
+from typing import Annotated
+
+from pydantic import UUID4, ConfigDict, Field
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -14,6 +16,7 @@ class HouseholdPreferencesUpdate(MealieModel):
 
     lock_recipe_edits_from_other_households: bool = True
     first_day_of_week: int = 0
+    default_mealplan_scale: Annotated[float, Field(gt=0)] = 1.0
 
     # Recipe Defaults
     recipe_public: bool = True

@@ -116,18 +116,17 @@
           {{ $t("meal-plan.days") }}
         </v-btn>
       </v-btn-toggle>
+      <v-chip
+        v-if="selectedPlanDays.length"
+        color="primary"
+        closable
+        @click:close="selectedPlanDays = []"
+      >
+        {{ selectedPlanDays.length }} selected
+      </v-chip>
       <BaseButtonGroup
         class="d-flex ms-auto"
         :buttons="[
-          edit ? {
-            icon: $globals.icons.calendar,
-            text: $t('general.view'),
-            event: 'view',
-          } : {
-            icon: $globals.icons.edit,
-            text: $t('general.edit'),
-            event: 'edit',
-          },
           {
             icon: $globals.icons.dotsVertical,
             text: '',
@@ -153,8 +152,6 @@
           },
         ]"
         @add-to-list="addAllToList"
-        @edit="router.push({ name: TABS.edit, query: route.query })"
-        @view="router.push({ name: TABS.view, query: route.query })"
         @settings="router.push('/household/mealplan/settings')"
         @calendar-feed="calendarDialog = true"
       />
@@ -177,7 +174,7 @@ import GroupMealPlanCalendarDialog from "~/components/Domain/Household/GroupMeal
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
 import { useAddToShoppingListDialog } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
 import type { MealsByDate } from "~/composables/use-group-mealplan";
-import { getScaledRecipes, getWeekRange, useMealplans } from "~/composables/use-group-mealplan";
+import { getScaledRecipes, getWeekRange, selectedPlanDays, useMealplans } from "~/composables/use-group-mealplan";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
 
@@ -187,7 +184,6 @@ definePageMeta({
 
 const TABS = {
   view: "household-mealplan-planner-view",
-  edit: "household-mealplan-planner-edit",
 };
 
 const route = useRoute();
@@ -235,10 +231,6 @@ if (route.path === "/household/mealplan/planner") {
     query: route.query,
   });
 }
-
-const edit = computed(() => {
-  return route.path.startsWith("/household/mealplan/planner/edit");
-});
 
 function safeParseISO(date: string, fallback: Date | undefined = undefined) {
   try {

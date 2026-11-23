@@ -50,6 +50,14 @@
       variant="underlined"
       flat
     />
+    <v-number-input
+      v-model="local.defaultMealplanScale"
+      :prepend-icon="$globals.icons.potSteam"
+      :min="0.25"
+      :precision="null"
+      label="Default servings for planned meals"
+      variant="underlined"
+    />
 
     <BaseCardSectionTitle class="mt-5" :title="$t('household.household-recipe-preferences')">
       {{ $t("household.default-recipe-preferences-description") }}

@@ -180,6 +180,7 @@ class GroupMealplanController(BaseCrudController):
                 end_date=data.end_date,
                 entry_type=data.entry_type,
                 recipe_id=recipe.id,
+                recipe_scale=data.recipe_scale,
                 group_id=self.group_id,
                 user_id=self.user.id,
             )
