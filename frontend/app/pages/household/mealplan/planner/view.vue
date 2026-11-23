@@ -43,43 +43,46 @@
                   :name="mealplan.recipe ? mealplan.recipe.name : mealplan.title!"
                   :image="mealplan.recipe ? mealplan.recipe.image! : undefined"
                   :tags="mealplan.recipe ? mealplan.recipe.tags : []"
-                  :height="185"
+                  class="meal-card"
                   @selected="onCardClick(mealplan)"
                 >
+                  <!-- replaces the card's favourite/rating/menu row -->
                   <template #actions>
-                    <!-- ps-4 lines the row up with the title; the type is styled like the servings button, not like a tag -->
-                    <div class="meal-actions d-flex align-center ga-1 w-100 ps-4 pb-1" @click.stop>
-                      <v-menu>
-                        <template #activator="{ props: menuProps }">
-                          <v-card v-bind="menuProps" class="pa-1 px-2">
-                            <v-icon size="small" class="mr-2">
-                              {{ $globals.icons.potSteam }}
-                            </v-icon>
-                            {{ getEntryTypeText(mealplan.entryType!) }}
-                          </v-card>
-                        </template>
-                        <v-list density="compact">
-                          <v-list-item
-                            v-for="mealType in planTypeOptions"
-                            :key="mealType.value"
-                            :title="mealType.text"
-                            @click="actions.setType(mealplan, mealType.value)"
-                          />
-                        </v-list>
-                      </v-menu>
-                      <v-btn
-                        v-if="mealplan.recipe"
-                        size="small"
-                        variant="text"
-                        icon
-                        :title="$t('meal-plan.randomize-recipe')"
-                        @click="randomizeMeal(mealplan)"
-                      >
-                        <v-icon>{{ $globals.icons.diceMultiple }}</v-icon>
-                      </v-btn>
-                      <MealPlanScaleControl v-if="mealplan.recipe" class="ms-auto flex-shrink-0" :meal="mealplan" :actions="actions" />
-                    </div>
+                    <span />
                   </template>
+                  <!-- full-width row under the photo, wrapping on narrow cards so no control is pushed off the card;
+                       the type is styled like the servings button, not like a tag -->
+                  <div class="meal-actions d-flex flex-wrap align-center ga-1 px-2 py-1" @click.stop>
+                    <v-menu>
+                      <template #activator="{ props: menuProps }">
+                        <v-card v-bind="menuProps" class="pa-1 px-2 text-no-wrap flex-shrink-0">
+                          <v-icon size="small" class="mr-2">
+                            {{ $globals.icons.potSteam }}
+                          </v-icon>
+                          {{ getEntryTypeText(mealplan.entryType!) }}
+                        </v-card>
+                      </template>
+                      <v-list density="compact">
+                        <v-list-item
+                          v-for="mealType in planTypeOptions"
+                          :key="mealType.value"
+                          :title="mealType.text"
+                          @click="actions.setType(mealplan, mealType.value)"
+                        />
+                      </v-list>
+                    </v-menu>
+                    <v-btn
+                      v-if="mealplan.recipe"
+                      size="small"
+                      variant="text"
+                      icon
+                      :title="$t('meal-plan.randomize-recipe')"
+                      @click="randomizeMeal(mealplan)"
+                    >
+                      <v-icon>{{ $globals.icons.diceMultiple }}</v-icon>
+                    </v-btn>
+                    <MealPlanScaleControl v-if="mealplan.recipe" class="ms-auto flex-shrink-0" :meal="mealplan" :actions="actions" />
+                  </div>
                 </RecipeCardMobile>
                 <v-btn
                   class="remove-meal"
@@ -231,6 +234,15 @@ onUnmounted(() => {
 .meal-item {
   user-select: none;
   -webkit-touch-callout: none;
+}
+
+/* the card sets a fixed height for its photo row; let it grow to fit the controls row below */
+.meal-card {
+  height: auto !important;
+}
+
+.meal-actions {
+  border-top: 1px solid rgba(var(--v-theme-on-surface), 0.08);
 }
 
 /* the type and Serves buttons: outlined in the text colour (black in light, white in dark), no fill */
