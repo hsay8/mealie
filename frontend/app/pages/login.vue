@@ -2,9 +2,6 @@
   <v-container
     fluid
     class="d-flex justify-center align-center flex-column fill-height"
-    :class="{
-      'bg-off-white': !$vuetify.theme.current.dark && !isDark,
-    }"
   >
     <v-progress-circular
       v-if="reverseProxyLoggingIn"
@@ -446,10 +443,6 @@ function alertOnError(error: any) {
 .icon-avatar {
   border-color: rgba(0, 0, 0, 0.12);
   border: 2px;
-}
-
-.bg-off-white {
-  background: #f5f8fa;
 }
 
 .absolute {

@@ -3,15 +3,14 @@
     clipped-left
     density="compact"
     app
-    color="primary"
-    dark
-    class="d-print-none"
+    flat
+    class="d-print-none glass-bar"
   >
     <slot />
     <RouterLink :to="routerLink">
       <v-btn
         icon
-        color="white"
+        color="primary"
       >
         <v-img
           v-if="$appInfo.brandingLogoUrl"
@@ -58,7 +57,6 @@
           density="compact"
           flat
           :prepend-inner-icon="$globals.icons.search"
-          bg-color="primary-darken-1"
           :placeholder="$t('search.search-hint')"
         />
       </v-responsive>

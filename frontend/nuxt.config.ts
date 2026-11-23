@@ -73,7 +73,7 @@ export default defineNuxtConfig({
     viewTransition: true,
   },
 
-  css: ["~/assets/main.css", "~/assets/style-overrides.scss"],
+  css: ["~/assets/main.css", "~/assets/style-overrides.scss", "~/assets/glass.scss"],
 
   runtimeConfig: {
     sessionPassword: process.env.SESSION_PASSWORD || "password-with-at-least-32-characters",
@@ -269,6 +269,13 @@ export default defineNuxtConfig({
         fallback: "en-US",
       },
       defaults: {
+        // Fork: softer, rounder surfaces for the glass look (assets/glass.scss)
+        VCard: {
+          rounded: "lg",
+        },
+        VBtn: {
+          rounded: "lg",
+        },
         VOverlay: {
           scrollStrategy: "close",
         },

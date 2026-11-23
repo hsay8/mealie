@@ -21,7 +21,8 @@ async function fetchTheme(): Promise<ThemeConfig | undefined> {
   const route = "/api/app/about/theme";
 
   try {
-    const response = await fetch(route);
+    // Fork: the API marks the theme cacheable for a week, so revalidate or a theme change takes a week to show
+    const response = await fetch(route, { cache: "no-cache" });
     const data = await response.json();
     return data as ThemeConfig;
   }
@@ -48,27 +49,28 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         light: {
           dark: false,
           colors: {
-            primary: theme?.lightPrimary ?? "#E58325",
-            accent: theme?.lightAccent ?? "#007A99",
-            secondary: theme?.lightSecondary ?? "#973542",
-            success: theme?.lightSuccess ?? "#43A047",
-            info: theme?.lightInfo ?? "#1976d2",
-            warning: theme?.lightWarning ?? "#FF6D00",
-            error: theme?.lightError ?? "#EF5350",
+            primary: theme?.lightPrimary ?? "#0D9488",
+            accent: theme?.lightAccent ?? "#6366F1",
+            secondary: theme?.lightSecondary ?? "#E11D48",
+            success: theme?.lightSuccess ?? "#16A34A",
+            info: theme?.lightInfo ?? "#2563EB",
+            warning: theme?.lightWarning ?? "#D97706",
+            error: theme?.lightError ?? "#DC2626",
+            background: "#F3F6FA",
           },
         },
         dark: {
           dark: true,
           colors: {
-            primary: theme?.darkPrimary ?? "#E58325",
-            accent: theme?.darkAccent ?? "#007A99",
-            secondary: theme?.darkSecondary ?? "#973542",
-            success: theme?.darkSuccess ?? "#43A047",
-            info: theme?.darkInfo ?? "#1976d2",
-            warning: theme?.darkWarning ?? "#FF6D00",
-            error: theme?.darkError ?? "#EF5350",
-            background: "#1E1E1E",
-            surface: "#1E1E1E",
+            primary: theme?.darkPrimary ?? "#2DD4BF",
+            accent: theme?.darkAccent ?? "#818CF8",
+            secondary: theme?.darkSecondary ?? "#FB7185",
+            success: theme?.darkSuccess ?? "#4ADE80",
+            info: theme?.darkInfo ?? "#60A5FA",
+            warning: theme?.darkWarning ?? "#FBBF24",
+            error: theme?.darkError ?? "#F87171",
+            background: "#0B1120",
+            surface: "#162032",
           },
         },
       },

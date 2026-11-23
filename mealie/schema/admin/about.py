@@ -29,21 +29,21 @@ class AppInfo(MealieModel):
 
 
 class AppTheme(MealieModel):
-    light_primary: str = "#E58325"
-    light_accent: str = "#007A99"
-    light_secondary: str = "#973542"
-    light_success: str = "#43A047"
-    light_info: str = "#1976D2"
-    light_warning: str = "#FF6D00"
-    light_error: str = "#EF5350"
+    light_primary: str = "#0D9488"
+    light_accent: str = "#6366F1"
+    light_secondary: str = "#E11D48"
+    light_success: str = "#16A34A"
+    light_info: str = "#2563EB"
+    light_warning: str = "#D97706"
+    light_error: str = "#DC2626"
 
-    dark_primary: str = "#E58325"
-    dark_accent: str = "#007A99"
-    dark_secondary: str = "#973542"
-    dark_success: str = "#43A047"
-    dark_info: str = "#1976D2"
-    dark_warning: str = "#FF6D00"
-    dark_error: str = "#EF5350"
+    dark_primary: str = "#2DD4BF"
+    dark_accent: str = "#818CF8"
+    dark_secondary: str = "#FB7185"
+    dark_success: str = "#4ADE80"
+    dark_info: str = "#60A5FA"
+    dark_warning: str = "#FBBF24"
+    dark_error: str = "#F87171"
 
 
 class AppStartupInfo(MealieModel):

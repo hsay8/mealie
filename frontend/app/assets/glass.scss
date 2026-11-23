@@ -1,0 +1,85 @@
+// Fork: modern "glass" look. Translucent, blurred surfaces over a soft coloured backdrop.
+// Only surface-coloured components turn to glass; anything given a theme colour (bg-primary etc.) stays solid,
+// because Vuetify's colour classes are !important.
+
+// on :root, not .v-application, so menus and dialogs teleported out of the app still get them
+:root {
+  --glass-blur: blur(16px) saturate(160%);
+  --glass-alpha: 0.62;
+  --glass-edge: rgba(255, 255, 255, 0.75);
+  --glass-shadow: 0 4px 24px rgba(15, 23, 42, 0.06);
+}
+
+.v-theme--dark {
+  --glass-alpha: 0.55;
+  --glass-edge: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.v-application {
+  font-family: "Public Sans", "Roboto", system-ui, sans-serif !important;
+  background-image:
+    radial-gradient(45vmax 45vmax at 0% 0%, rgba(var(--v-theme-primary), 0.22), transparent 70%),
+    radial-gradient(40vmax 40vmax at 100% 15%, rgba(var(--v-theme-accent), 0.18), transparent 70%),
+    radial-gradient(45vmax 45vmax at 60% 110%, rgba(var(--v-theme-secondary), 0.12), transparent 70%) !important;
+  background-attachment: fixed !important;
+}
+
+// Vuetify's typography classes set their own font
+.v-application [class*="text-h"],
+.v-application [class*="text-subtitle"],
+.v-application [class*="text-body"],
+.v-application .text-overline,
+.v-application .text-caption,
+.v-application .text-button {
+  font-family: inherit !important;
+}
+
+.v-application .v-card--variant-elevated,
+.v-application .v-card--variant-flat,
+.v-application .v-expansion-panel,
+.v-overlay__content > .v-list,
+.v-overlay__content > .v-sheet,
+.v-overlay__content > .v-card,
+.v-application .glass-bar.v-toolbar,
+.v-application .v-navigation-drawer {
+  background-color: rgba(var(--v-theme-surface), var(--glass-alpha));
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--glass-shadow);
+}
+
+// main.css paints the dark drawer solid; the drawer and bar only need their inner edge
+.v-application.v-theme--dark .v-navigation-drawer {
+  background-color: rgba(var(--v-theme-surface), var(--glass-alpha)) !important;
+}
+
+.v-application .v-navigation-drawer,
+.v-application .glass-bar.v-toolbar {
+  box-shadow: none;
+  border-width: 0;
+}
+
+.v-application .v-navigation-drawer {
+  border-inline-end-width: 1px;
+}
+
+.v-application .glass-bar.v-toolbar {
+  border-bottom-width: 1px;
+}
+
+// menus and dialogs float over the page, so they get a little more body
+.v-overlay__content > .v-list,
+.v-overlay__content > .v-sheet,
+.v-overlay__content > .v-card {
+  --glass-alpha: 0.82;
+}
+
+// cards inside cards would stack blur on blur; let them sit flat on their parent instead
+.v-card .v-card--variant-elevated,
+.v-card .v-card--variant-flat {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+}
