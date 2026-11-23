@@ -71,15 +71,17 @@ the secret will be serialized as '*****'
 
 
 def determine_secrets(data_dir: Path, secret: str, production: bool) -> str:
-    if not production:
-        return "shh-secret-test-key"
-
+    # Fork change: use an existing secret file even in dev mode, so a dev server running on real
+    # data keeps existing logins and API tokens valid and is not signed with a well-known key.
     secrets_file = data_dir.joinpath(secret)
     if secrets_file.is_file():
         with open(secrets_file) as f:
             existing_secret = f.read().strip()
         if existing_secret:
             return existing_secret
+
+    if not production:
+        return "shh-secret-test-key"
 
     data_dir.mkdir(parents=True, exist_ok=True)
     new_secret = secrets.token_hex(32)
